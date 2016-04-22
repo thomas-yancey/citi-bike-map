@@ -16,9 +16,18 @@ MapController.prototype = {
   },
 
   updateLocation: function(latLon){
+    this.addPersonalLocationMarker(latLon)
     this.map.setCenter(latLon);
     this.map.setZoom(15);
     this.grabMarkersFromCiti()
+  },
+
+  addPersonalLocationMarker: function(latLon){
+      var marker = new google.maps.Marker({
+        position: latLon,
+        map: this.map,
+        icon: "http://i.stack.imgur.com/orZ4x.png"
+      })
   },
 
   grabMarkersFromCiti: function(){
@@ -27,7 +36,7 @@ MapController.prototype = {
       dataType: 'json',
       method: 'GET'
     }).done(function(response){
-      applicationController.mapController.createBuildMarkers(response)
+      applicationController.mapController.createBuildMarkers(response);
     }).fail(function(response){
       // do something
     })
@@ -37,58 +46,56 @@ MapController.prototype = {
     stations = response.stationBeanList;
     this.parent.buildStations(stations)
     for (i = 0; i < this.parent.stations.length; i++){
-      this.addMarker(this.parent.stations[i],this.map)
-    }
+      this.addMarker(this.parent.stations[i]);
+    };
+  },
+
+  setOneBikeStations: function(){
+    currStations = this.parent.stations
+    for (var i = 0; i < currStations.length; i++){
+      if (currStations[i].availableBikes > 10){
+        this.addMarker(currStations[i])
+      };
+    };
+  },
+
+  clearMarkers: function(){
+    this.setMapOnAll(null);
+  },
+
+  setMapOnAll: function(map){
+    for (var i = 0; i < this.markers.length; i++){
+      this.markers[i].setMap(map);
+    };
   },
 
   addMarker: function(mark) {
-    // debugger
-    var shade = this.colorShade(this.percentBikes(mark.availableBikes,mark.totalDocks));
-    var marker = new google.maps.Marker({
+    var marker = this.createMarker(mark)
+    var infoWindow = this.createInfoWindow(mark);
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.open(this.map,marker);
+    });
+    this.markers.push(marker);
+  },
+
+  createMarker: function(mark){
+    debugger
+    return new google.maps.Marker({
       position: {lat: mark.latitude, lng: mark.longitude},
       map: this.map,
-      icon: this.full_url(shade)
-     });
-      // icon: full_url
-      debugger
-    var infowindow = new google.maps.InfoWindow({
+      icon: mark.icon
+    });
+  },
+
+  createInfoWindow: function(mark){
+    return new google.maps.InfoWindow({
       content: "<p>" + mark.stationName + "</p><p>availableBikes: " + mark.availableBikes.toString() + "</p><p>availableDocks: " + mark.availableDocks.toString() + "</p>"
     });
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(this.map,marker);
-    });
   },
 
-  full_url: function(shade){
-    return 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + shade;
+  hasAtLeastOneBike: function(){
+    this.clearMarkers;
+    this.markers = [];
+    this.setOneBikeStations();
   },
-
-  percentBikes: function(bikes,total){
-    return (bikes / total);
-  },
-
-  colorShade: function(val){
-    if (val <= .1){
-      return "FFFFFF";
-    } else if (val <= .2){
-      return "FFE6E6";
-    } else if (val <= .3){
-      return 'FFC8C8';
-    } else if (val <= .4){
-      return 'FFA9A9';
-    } else if (val <= .5){
-      return 'FF8A8A';
-    } else if (val <= .6){
-      return 'FF6C6C';
-    } else if (val <= .7){
-      return 'FF4D4D';
-    } else if (val <= .7){
-      return 'FF2E2E';
-    } else if (val <= .9){
-      return 'FF0F0F';
-    } else {
-      return 'C70000';
-    }
-  }
-
 }

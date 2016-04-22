@@ -10,10 +10,10 @@ ApplicationController.prototype = {
   },
 
   getLocation: function(){
-    navigator.geolocation.getCurrentPosition(this.success.bind(this))
+    navigator.geolocation.getCurrentPosition(this.gotLocation.bind(this))
   },
 
-  success: function(pos) {
+  gotLocation: function(pos) {
     var coords = pos.coords
     var latlon = {lat: coords.latitude, lng: coords.longitude}
     this.mapController.updateLocation(latlon)
@@ -21,22 +21,9 @@ ApplicationController.prototype = {
 
   buildStations: function(stations){
     for (var i = 0; i < stations.length; i++){
-      this.stations.push(new this.station(stations[i]))
-    }
-  },
-
-  station: function(obj){
-    this.availableBikes = obj.availableBikes,
-    this.availableDocks = obj.availableDocks,
-    this.id = obj.id,
-    this.landMark = obj.landMark,
-    this.lastCommunicationTime = obj.lastCommunicationTime,
-    this.latitude = obj.latitude,
-    this.longitude = obj.longitude,
-    this.stationName = obj.stationName,
-    this.statusKey = obj.statusKey,
-    this.statusValue = obj.statusValue,
-    this.testStation = obj.testStation,
-    this.totalDocks = obj.totalDocks
+      if (stations[i].statusKey === 1){
+        this.stations.push(new Station(stations[i]))
+      };
+    };
   },
 }
