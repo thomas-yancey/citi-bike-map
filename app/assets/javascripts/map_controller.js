@@ -54,6 +54,7 @@ MapController.prototype = {
     currStations = this.parent.stations
     for (var i = 0; i < currStations.length; i++){
       if (currStations[i].availableBikes > 10){
+        console.log(currStations[i].availableBikes)
         this.addMarker(currStations[i])
       };
     };
@@ -94,7 +95,7 @@ MapController.prototype = {
   },
 
   hasAtLeastOneBike: function(){
-    this.clearMarkers;
+    this.clearMarkers();
     this.markers = [];
     this.setOneBikeStations();
   },
