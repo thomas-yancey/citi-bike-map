@@ -22,6 +22,10 @@ MapController.prototype = {
     this.grabMarkersFromCiti()
   },
 
+  showAllLocations: function(){
+    this.grabMarkersFromCiti();
+  },
+
   addPersonalLocationMarker: function(latLon){
       var marker = new google.maps.Marker({
         position: latLon,
@@ -38,11 +42,12 @@ MapController.prototype = {
     }).done(function(response){
       applicationController.mapController.createBuildMarkers(response);
     }).fail(function(response){
-      // do something
+      alert("not able to pull data from citiBike")
     })
   },
 
   createBuildMarkers: function(response){
+    debugger
     stations = response.stationBeanList;
     this.parent.buildStations(stations)
     for (i = 0; i < this.parent.stations.length; i++){
@@ -50,10 +55,10 @@ MapController.prototype = {
     };
   },
 
-  setOneBikeStations: function(){
+  setMinBikeStations: function(min){
     currStations = this.parent.stations
     for (var i = 0; i < currStations.length; i++){
-      if (currStations[i].availableBikes > 10){
+      if (currStations[i].availableBikes > min){
         console.log(currStations[i].availableBikes)
         this.addMarker(currStations[i])
       };
@@ -80,7 +85,6 @@ MapController.prototype = {
   },
 
   createMarker: function(mark){
-    debugger
     return new google.maps.Marker({
       position: {lat: mark.latitude, lng: mark.longitude},
       map: this.map,
@@ -90,13 +94,13 @@ MapController.prototype = {
 
   createInfoWindow: function(mark){
     return new google.maps.InfoWindow({
-      content: "<p>" + mark.stationName + "</p><p>availableBikes: " + mark.availableBikes.toString() + "</p><p>availableDocks: " + mark.availableDocks.toString() + "</p>"
+      content: "<p>" + mark.stationName + "</p><p>Bikes: " + mark.availableBikes.toString() + " Docks: " + mark.availableDocks.toString() + "</p>"
     });
   },
 
-  hasAtLeastOneBike: function(){
+  hasMinBike: function(min){
     this.clearMarkers();
     this.markers = [];
-    this.setOneBikeStations();
+    this.setMinBikeStations(min);
   },
 }

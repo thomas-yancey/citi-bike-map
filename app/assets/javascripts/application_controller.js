@@ -10,13 +10,18 @@ ApplicationController.prototype = {
   },
 
   getLocation: function(){
-    navigator.geolocation.getCurrentPosition(this.gotLocation.bind(this))
+    navigator.geolocation.getCurrentPosition(this.gotLocation.bind(this),this.noLocation())
   },
 
   gotLocation: function(pos) {
     var coords = pos.coords
-    var latlon = {lat: coords.latitude, lng: coords.longitude}
-    this.mapController.updateLocation(latlon)
+    var latLon = {lat: coords.latitude, lng: coords.longitude}
+    this.mapController.updateLocation(latLon)
+  },
+
+  noLocation: function() {
+    var latLon = {lat:40.757888, lng: -73.984603}
+    this.mapController.updateLocation(latLon)
   },
 
   buildStations: function(stations){
