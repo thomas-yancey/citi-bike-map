@@ -12,7 +12,7 @@ MapController.prototype = {
   init: function(){
     var mapOptions = {
             center: { lat: 40.7, lng: -74},
-            zoom: 4
+            zoom: 10
           };
     this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     this.grabMarkersFromCiti();
@@ -105,18 +105,6 @@ MapController.prototype = {
     return new google.maps.InfoWindow({
       content: "<p>" + mark.stationName + "</p><p>Bikes: " + mark.availableBikes.toString() + " Docks: " + mark.availableDocks.toString() + "</p>"
     });
-  },
-
-  hasMinBikes: function(min){
-    this.searchType = "availableBikes";
-    this.min = min;
-    this.resetAndSearch();
-  },
-
-  hasMinDocks: function(min){
-    this.searchType = "availableDocks";
-    this.min = min;
-    this.resetAndSearch();
   },
 
   resetAndSearch: function(){

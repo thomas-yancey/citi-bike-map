@@ -20,8 +20,7 @@ ApplicationController.prototype = {
   },
 
   noLocation: function() {
-    var latLon = {lat:40.757888, lng: -73.984603}
-    this.mapController.updateLocation(latLon)
+    // alert("turn on location services for current location");
   },
 
   buildStations: function(stations){
