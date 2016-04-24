@@ -12,7 +12,6 @@ function Station(obj){
     this.testStation = obj.testStation,
     this.totalDocks = obj.totalDocks,
     this.icon = this.fullIconUrl(this.totalBikes,this.totalDocks)
-    debugger
   };
 
   Station.prototype = {

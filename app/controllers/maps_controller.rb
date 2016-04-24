@@ -1,7 +1,9 @@
 class MapsController < ApplicationController
 
   def all_data
-    render json: Map.response_from_citi
+    min = params[:min].to_i
+    citi_response = Map.citi_search(params[:searchType],min)
+    render json: citi_response
   end
 
 end

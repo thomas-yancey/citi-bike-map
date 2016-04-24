@@ -4,6 +4,8 @@ function MapController(applicationController) {
   this.markers = []
   this.infoWindows = []
   this.positionMarker = null
+  this.searchType = "availableBikes"
+  this.min = 0
 }
 
 MapController.prototype = {
@@ -13,13 +15,17 @@ MapController.prototype = {
             zoom: 4
           };
     this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    this.grabMarkersFromCiti();
   },
 
   updateLocation: function(latLon){
     this.addPersonalLocationMarker(latLon)
     this.map.setCenter(latLon);
     this.map.setZoom(15);
-    this.grabMarkersFromCiti()
+  },
+
+  noLocation: function(latLon){
+    this.map.setZoom(15);
   },
 
   showAllLocations: function(){
@@ -35,10 +41,15 @@ MapController.prototype = {
   },
 
   grabMarkersFromCiti: function(){
+    var searchParams = {
+      min: this.min,
+      searchType : this.searchType
+    }
     $.ajax({
       url: 'maps/all_data',
       dataType: 'json',
-      method: 'GET'
+      method: 'GET',
+      data: searchParams
     }).done(function(response){
       applicationController.mapController.createBuildMarkers(response);
     }).fail(function(response){
@@ -47,8 +58,7 @@ MapController.prototype = {
   },
 
   createBuildMarkers: function(response){
-    debugger
-    stations = response.stationBeanList;
+    stations = response
     this.parent.buildStations(stations)
     for (i = 0; i < this.parent.stations.length; i++){
       this.addMarker(this.parent.stations[i]);
@@ -56,7 +66,6 @@ MapController.prototype = {
   },
 
   setMinBikeStations: function(min){
-    currStations = this.parent.stations
     for (var i = 0; i < currStations.length; i++){
       if (currStations[i].availableBikes > min){
         console.log(currStations[i].availableBikes)
@@ -98,9 +107,22 @@ MapController.prototype = {
     });
   },
 
-  hasMinBike: function(min){
-    this.clearMarkers();
-    this.markers = [];
-    this.setMinBikeStations(min);
+  hasMinBikes: function(min){
+    this.searchType = "availableBikes";
+    this.min = min;
+    this.resetAndSearch();
   },
+
+  hasMinDocks: function(min){
+    this.searchType = "availableDocks";
+    this.min = min;
+    this.resetAndSearch();
+  },
+
+  resetAndSearch: function(){
+    this.clearMarkers();
+    this.parent.stations = [];
+    this.markers = [];
+    this.grabMarkersFromCiti();
+  }
 }
