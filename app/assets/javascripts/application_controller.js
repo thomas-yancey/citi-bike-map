@@ -30,4 +30,16 @@ ApplicationController.prototype = {
       };
     };
   },
+
+  listStations: function(stations){
+    var $builder = $("<div id=list-stations></div>");
+    for (var i = 0; i <this.stations.length; i++){
+      var curr = this.stations[i];
+      $builder.append("<div class='station'>");
+      $builder.append("<a href='" + curr.id.toString() + "'><h3>" + curr.stationName + "</h3></a>");
+      $builder.append("<p>Bikes: " + curr.availableBikes + " Available Docks: " + curr.availableDocks + "</p>");
+      $builder.append("</div>");
+    }
+    return $builder
+  }
 }

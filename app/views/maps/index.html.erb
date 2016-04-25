@@ -4,11 +4,13 @@
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span id="spanClose">×</span>
-      <h2>Desired # of Bikes</h2>
+      <div id="inner-content">
+        <h2>Desired # of Bikes</h2>
         <%= form_tag "/maps/all_data", id: "minNum" do %>
           <%= text_field_tag :custom %>
           <%= submit_tag %>
         <% end %>
+      </div>
     </div>
   </div>
 

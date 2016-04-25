@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CitiRailsMapper</title>
+  <title>CitiBike Map</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,27 +13,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li id="show-all"><a href="#">All Stations</a></li>
-            <li id="location"><a href="#">Current Location</a></li>
-            <li id="has-bikes"><a href="#">Has Bikes</a></li>
-            <li id="has-docks"><a href="#">Has Docks</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">CitiBike Map</a>
       </div>
-    </nav>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li id="show-all"><a href="#">All Stations</a></li>
+          <li id="location"><a href="#">Current Location</a></li>
+          <li id="has-bikes"><a href="#">Has Bikes</a></li>
+          <li id="has-docks"><a href="#">Has Docks</a></li>
+          <li id="list-stations"><a href="#">list Stations</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
 
 <%= yield %>
 

@@ -1,11 +1,13 @@
-function MapController(applicationController) {
+ function MapController(applicationController) {
   this.map = null
   this.parent = applicationController
   this.markers = []
   this.infoWindows = []
   this.positionMarker = null
   this.searchType = "availableBikes"
+  this.locationId = null
   this.min = 0
+  this.panLocation = null
 }
 
 MapController.prototype = {
@@ -51,7 +53,7 @@ MapController.prototype = {
       method: 'GET',
       data: searchParams
     }).done(function(response){
-      applicationController.mapController.createBuildMarkers(response);
+      applicationController.mapController.createBuildMarkers(response.stationBeanList);
     }).fail(function(response){
       alert("not able to pull data from citiBike")
     })
@@ -59,19 +61,19 @@ MapController.prototype = {
 
   createBuildMarkers: function(response){
     stations = response
-    this.parent.buildStations(stations)
+    this.parent.buildStations(stations);
     for (i = 0; i < this.parent.stations.length; i++){
-      this.addMarker(this.parent.stations[i]);
-    };
-  },
-
-  setMinBikeStations: function(min){
-    for (var i = 0; i < currStations.length; i++){
-      if (currStations[i].availableBikes > min){
-        console.log(currStations[i].availableBikes)
-        this.addMarker(currStations[i])
+      if (this.parent.stations[i][this.searchType] >= this.min){
+        this.addMarker(this.parent.stations[i]);
       };
     };
+
+    if (this.panLocation !== null){
+      this.map.panTo(this.panLocation);
+      this.panLocation = null;
+      this.panLocation = null
+      this.locationId = null
+    }
   },
 
   clearMarkers: function(){
@@ -87,6 +89,14 @@ MapController.prototype = {
   addMarker: function(mark) {
     var marker = this.createMarker(mark)
     var infoWindow = this.createInfoWindow(mark);
+    if (marker.id === this.locationId){
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      marker.addListener('click', function(){
+        marker.setAnimation(null);
+      })
+      infoWindow.open(this.map,marker);
+      this.panLocation = {lat: marker.latitude, lng: marker.longitude};
+    };
     google.maps.event.addListener(marker, 'click', function() {
       infoWindow.open(this.map,marker);
     });
@@ -95,6 +105,7 @@ MapController.prototype = {
 
   createMarker: function(mark){
     return new google.maps.Marker({
+      id: mark.id,
       position: {lat: mark.latitude, lng: mark.longitude},
       map: this.map,
       icon: mark.icon
