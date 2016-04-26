@@ -7,10 +7,22 @@ ApplicationController.prototype = {
   init: function(){
     this.mapController.init()
     this.getLocation();
+    this.testingGPS();
+  },
+
+  testingGPS: function(){
+    navigator.geolocation.watchPosition(this.watchGPS,this.noLocation, {
+      maximumAge: 1000,
+      enableHighAccuracy: true
+    });
+  },
+
+  watchGPS: function(pos){
+    alert(pos.coords.latitude);
   },
 
   getLocation: function(){
-    navigator.geolocation.getCurrentPosition(this.gotLocation.bind(this),this.noLocation())
+    navigator.geolocation.getCurrentPosition(this.gotLocation.bind(this),this.noLocation());
   },
 
   gotLocation: function(pos) {
