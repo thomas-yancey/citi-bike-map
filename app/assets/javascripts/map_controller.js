@@ -8,6 +8,7 @@
   this.locationId = null
   this.min = 0
   this.panLocation = null
+  this.personalLocation = null
 }
 
 MapController.prototype = {
@@ -21,8 +22,9 @@ MapController.prototype = {
   },
 
   updateLocation: function(latLon){
-    this.addPersonalLocationMarker(latLon)
-    this.map.setCenter(latLon);
+    this.clearPersonalLocationMarker();
+    this.addPersonalLocationMarker(latLon);
+    this.map.setCenter(this.personalLocation.position);
     this.map.setZoom(15);
   },
 
@@ -34,12 +36,18 @@ MapController.prototype = {
     this.grabMarkersFromCiti();
   },
 
+  clearPersonalLocationMarker: function(){
+    this.personalLocation.setMap(null);
+    this.personalLocation = null;
+  },
+
   addPersonalLocationMarker: function(latLon){
       var marker = new google.maps.Marker({
         position: latLon,
         map: this.map,
         icon: "http://i.stack.imgur.com/orZ4x.png"
       })
+      this.personalLocation = marker;
   },
 
   grabMarkersFromCiti: function(){

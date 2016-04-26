@@ -6,12 +6,12 @@ function ApplicationController(){
 ApplicationController.prototype = {
   init: function(){
     this.mapController.init()
-    this.getLocation();
+    // this.getLocation();
     this.testingGPS();
   },
 
   testingGPS: function(){
-    navigator.geolocation.watchPosition(this.watchGPS,this.noLocation, {
+    navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
       maximumAge: 1000,
       enableHighAccuracy: true
     });
@@ -26,9 +26,9 @@ ApplicationController.prototype = {
   },
 
   gotLocation: function(pos) {
-    var coords = pos.coords
-    var latLon = {lat: coords.latitude, lng: coords.longitude}
-    this.mapController.updateLocation(latLon)
+    var coordinates = pos.coords;
+    var latLng = {lat: coordinates.latitude, lng: coordinates.longitude};
+    this.mapController.updateLocation(latLng)
   },
 
   noLocation: function() {
