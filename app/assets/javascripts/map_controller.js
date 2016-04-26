@@ -24,8 +24,7 @@ MapController.prototype = {
   updateLocation: function(latLon){
     this.clearPersonalLocationMarker();
     this.addPersonalLocationMarker(latLon);
-    alert("here");
-    this.map.setCenter(this.personalLocation.position);
+    this.map.panTo(this.personalLocation.position);
     this.map.setZoom(15);
   },
 

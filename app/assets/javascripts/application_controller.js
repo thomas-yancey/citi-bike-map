@@ -1,24 +1,30 @@
 function ApplicationController(){
   this.mapController = new MapController(this)
   this.stations = []
+  this.id = null
 }
 
 ApplicationController.prototype = {
   init: function(){
     this.mapController.init()
     // this.getLocation();
-    this.testingGPS();
+    this.followGPS();
+    setTimeout(function(){
+      this.disableGPS()
+      }.bind(this),10000);
   },
 
-  testingGPS: function(){
-    navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
+  followGPS: function(){
+
+    this.id = navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
       maximumAge: 1000,
       enableHighAccuracy: true
     });
   },
 
-  watchGPS: function(pos){
-    alert(pos.coords.latitude);
+  disableGPS: function(){
+    alert('ya');
+    navigator.geolocation.clearWatch(this.id);
   },
 
   getLocation: function(){
@@ -26,6 +32,7 @@ ApplicationController.prototype = {
   },
 
   gotLocation: function(pos) {
+    alert('here');
     var coordinates = pos.coords;
     var latLng = {lat: coordinates.latitude, lng: coordinates.longitude};
     this.mapController.updateLocation(latLng)
