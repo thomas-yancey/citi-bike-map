@@ -30,7 +30,6 @@ ApplicationController.prototype = {
 
   disableGPS: function(){
     navigator.geolocation.clearWatch(this.watchID);
-    alert('disabled gps');
   },
 
   getLocation: function(){
@@ -38,7 +37,6 @@ ApplicationController.prototype = {
   },
 
   gotLocation: function(pos) {
-    alert('gotlocation');
     var coordinates = pos.coords;
     var latLng = {lat: coordinates.latitude, lng: coordinates.longitude};
     this.mapController.updateLocation(latLng)

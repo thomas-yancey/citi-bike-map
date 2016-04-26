@@ -12,7 +12,11 @@ var eventHandlers = function(){
   var $form = $("<form id='minNum' action='/maps/all_data' accept-charset='UTF-8' method='post'><input type='text' name='custom' id='custom' /><input type='submit' name='commit' value='Save changes' /></form>");
 
   $('#live-gps-img').on ('click', function(){
-    alert('clicked');
+    if ($('#live-gps-img')[0].src.match(/gps-fixed/)){
+      $('#live-gps-img').attr('src','/assets/gps-not-fixed')
+    } else {
+      $('#live-gps-img').attr('src','/assets/gps-fixed')
+    }
     applicationController.toggleGPS();
   })
 
