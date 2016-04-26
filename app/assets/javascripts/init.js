@@ -14,6 +14,7 @@ var eventHandlers = function(){
   $('#show-all').on ('click', function(){
     event.preventDefault();
     $('button.navbar-toggle').click();
+    $('#loader').show();
     mapController.searchType = "availableDocks";
     mapController.min = 0;
     mapController.resetAndSearch();
@@ -81,6 +82,5 @@ var eventHandlers = function(){
     modal.style.display = "none";
     mapController.resetAndSearch();
   });
-
 }
 

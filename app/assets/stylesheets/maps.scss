@@ -72,3 +72,16 @@ body, html {
     text-decoration: none;
     cursor: pointer;
 }
+
+#loader {
+  position: absolute;
+  z-index: 1;
+  padding-top: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+/* loading bubble for when generating */
+
+
+

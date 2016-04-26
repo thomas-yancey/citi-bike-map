@@ -43,6 +43,7 @@ MapController.prototype = {
   },
 
   grabMarkersFromCiti: function(){
+    $('#loader').show();
     var searchParams = {
       min: this.min,
       searchType : this.searchType
@@ -71,9 +72,9 @@ MapController.prototype = {
     if (this.panLocation !== null){
       this.map.panTo(this.panLocation);
       this.panLocation = null;
-      this.panLocation = null
-      this.locationId = null
+      this.locationId = null;
     }
+    $('#loader').hide();
   },
 
   clearMarkers: function(){
@@ -89,21 +90,21 @@ MapController.prototype = {
   addMarker: function(mark) {
     var marker = this.createMarker(mark)
     var infoWindow = this.createInfoWindow(mark);
+
     if (marker.id === this.locationId){
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      marker.addListener('click', function(){
-        marker.setAnimation(null);
-      })
       infoWindow.open(this.map,marker);
-      this.panLocation = {lat: marker.latitude, lng: marker.longitude};
+      this.panLocation = marker.position;
     };
+
     google.maps.event.addListener(marker, 'click', function() {
       infoWindow.open(this.map,marker);
     });
+
     this.markers.push(marker);
   },
 
   createMarker: function(mark){
+    console.log("latitude: " + mark.latitude + "| lng " + mark.longitude);
     return new google.maps.Marker({
       id: mark.id,
       position: {lat: mark.latitude, lng: mark.longitude},
@@ -114,7 +115,7 @@ MapController.prototype = {
 
   createInfoWindow: function(mark){
     return new google.maps.InfoWindow({
-      content: "<p>" + mark.stationName + "</p><p>Bikes: " + mark.availableBikes.toString() + " Docks: " + mark.availableDocks.toString() + "</p>"
+      content: "<p>" + mark.stationName + "</p><p>Bikes: " + mark.availableBikes.toString() + " Docks: " + mark.availableDocks.toString() + "</p><p><a href='" + mark.mapUrl + "'>Navigate to Station</a></p>"
     });
   },
 

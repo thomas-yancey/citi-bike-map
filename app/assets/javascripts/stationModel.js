@@ -12,6 +12,7 @@ function Station(obj){
     this.testStation = obj.testStation,
     this.totalDocks = obj.totalDocks,
     this.icon = this.fullIconUrl(this.totalBikes,this.totalDocks)
+    this.mapUrl = this.mapsUrlBuilder(this.latitude, this.longitude)
   };
 
   Station.prototype = {
@@ -52,5 +53,11 @@ function Station(obj){
       } else {
         return '030000';
       }
+    },
+
+    mapsUrlBuilder: function(lat, lng){
+      var startUrl = "http://maps.google.com/maps?q="
+      var fullUrl = startUrl + lat.toString() + "," + lng.toString();
+      return fullUrl;
     }
   }
