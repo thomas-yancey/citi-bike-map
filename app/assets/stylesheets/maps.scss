@@ -81,6 +81,13 @@ body, html {
   text-align: center;
 }
 
+#live-gps-container {
+  position: fixed;
+  z-index: 1;
+  padding-top: 85vh;
+  text-align: left;
+}
+
 /* loading bubble for when generating */
 
 

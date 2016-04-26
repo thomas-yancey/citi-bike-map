@@ -11,6 +11,11 @@ var eventHandlers = function(){
   var span = document.getElementById("spanClose");
   var $form = $("<form id='minNum' action='/maps/all_data' accept-charset='UTF-8' method='post'><input type='text' name='custom' id='custom' /><input type='submit' name='commit' value='Save changes' /></form>");
 
+  $('#live-gps-img').on ('click', function(){
+    alert('clicked');
+    applicationController.toggleGPS();
+  })
+
   $('#show-all').on ('click', function(){
     event.preventDefault();
     $('button.navbar-toggle').click();

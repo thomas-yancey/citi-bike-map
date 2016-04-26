@@ -1,30 +1,36 @@
 function ApplicationController(){
   this.mapController = new MapController(this)
   this.stations = []
-  this.id = null
+  this.watchID = null
+  this.liveGPS = false
 }
 
 ApplicationController.prototype = {
   init: function(){
     this.mapController.init()
-    // this.getLocation();
-    this.followGPS();
-    setTimeout(function(){
-      this.disableGPS()
-      }.bind(this),10000);
+    this.getLocation();
+  },
+
+  toggleGPS: function(){
+    if (this.liveGPS === false){
+      this.liveGPS = true;
+      this.followGPS();
+    } else {
+      this.liveGPS = false;
+      this.disableGPS();
+    }
   },
 
   followGPS: function(){
-
-    this.id = navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
+    this.watchID = navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
       maximumAge: 1000,
       enableHighAccuracy: true
     });
   },
 
   disableGPS: function(){
-    alert('ya');
-    navigator.geolocation.clearWatch(this.id);
+    navigator.geolocation.clearWatch(this.watchID);
+    alert('disabled gps');
   },
 
   getLocation: function(){
@@ -32,7 +38,7 @@ ApplicationController.prototype = {
   },
 
   gotLocation: function(pos) {
-    alert('here');
+    alert('gotlocation');
     var coordinates = pos.coords;
     var latLng = {lat: coordinates.latitude, lng: coordinates.longitude};
     this.mapController.updateLocation(latLng)
