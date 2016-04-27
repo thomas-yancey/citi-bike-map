@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  $('#following').hide()
   applicationController = new ApplicationController()
   applicationController.init()
   eventHandlers();
@@ -11,12 +12,7 @@ var eventHandlers = function(){
   var span = document.getElementById("spanClose");
   var $form = $("<form id='minNum' action='/maps/all_data' accept-charset='UTF-8' method='post'><input type='text' name='custom' id='custom' /><input type='submit' name='commit' value='Save changes' /></form>");
 
-  $('#live-gps-img').on ('click', function(){
-    if ($('#live-gps-img')[0].src.match(/gps-fixed/)){
-      $('#live-gps-img').attr('src','/assets/gps-not-fixed')
-    } else {
-      $('#live-gps-img').attr('src','/assets/gps-fixed')
-    }
+  $('#live-gps-container').on ('click', function(){
     applicationController.toggleGPS();
   })
 
@@ -54,6 +50,15 @@ var eventHandlers = function(){
     var $h2 = $("<h2>Minimum # of Docks<h2>");
     $('#myModal #inner-content').append($h2);
     $('#myModal #inner-content').append($form);
+    modal.style.display = 'block';
+  });
+
+  $('#list-close-stations').on ('click', function(){
+    event.preventDefault();
+    $('button.navbar-toggle').click();
+    $('#myModal #inner-content').empty();
+    var stations = applicationController.getClosestLocations();
+    $('#myModal #inner-content').append(applicationController.listClosestStations(stations));
     modal.style.display = 'block';
   });
 
