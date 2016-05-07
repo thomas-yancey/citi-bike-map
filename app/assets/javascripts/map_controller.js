@@ -25,12 +25,7 @@ MapController.prototype = {
   updateLocation: function(latLon){
     this.clearPersonalLocationMarker();
     this.addPersonalLocationMarker(latLon);
-    console.log(this.firstPan);
-    if (this.firstPan === true){
-      console.log(this);
-      this.map.panTo(this.personalLocation.position);
-      this.firstPan = false;
-    };
+    this.map.panTo(this.personalLocation.position);
   },
 
   noLocation: function(latLon){
