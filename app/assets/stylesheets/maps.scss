@@ -34,6 +34,18 @@ body, html {
   z-index: 2;
 }
 
+#last-update {
+  position: absolute;
+  z-index: 2;
+  padding-top: 50px;
+  text-align: center;
+  color: white;
+  background-color: blue;
+}
+
+#last-update p {
+  font-size: 1.5em;
+}
 .modal {
     display: none;
     position: fixed; /* Stay in place */

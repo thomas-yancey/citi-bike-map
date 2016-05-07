@@ -73,6 +73,7 @@ MapController.prototype = {
   createBuildMarkers: function(response){
     stations = response
     this.parent.buildStations(stations);
+    debugger
     for (i = 0; i < this.parent.stations.length; i++){
       if (this.parent.stations[i][this.searchType] >= this.min){
         this.addMarker(this.parent.stations[i]);
@@ -85,6 +86,7 @@ MapController.prototype = {
       this.locationId = null;
     }
     $('#loader').hide();
+    $('#last-update #curr').html(this.currentTime());
   },
 
   clearMarkers: function(){
@@ -134,5 +136,23 @@ MapController.prototype = {
     this.parent.stations = [];
     this.markers = [];
     this.grabMarkersFromCiti();
+    debugger
+  },
+
+  currentTime: function(){
+    var date = new Date();
+    var ampm = "AM";
+    hour = date.getHours();
+    if (hour > 12){
+      hour = hour - 12;
+      ampm = "PM";
+    } else if (hour === 12){
+      ampm = "PM";
+    } else if (hour === 0) {
+      hour = 12;
+    };
+    min = date.getMinutes();
+    sec = date.getSeconds();
+    return hour.toString() + ":" + min.toString() + ":" + sec.toString() + " " + ampm;
   }
 }
