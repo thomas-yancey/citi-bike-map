@@ -28,6 +28,7 @@ var eventHandlers = function(){
   $('#location').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
+    mapController.firstPan = true;
     applicationController.getLocation();
   });
 
@@ -62,7 +63,7 @@ var eventHandlers = function(){
     modal.style.display = 'block';
   });
 
-  $('#list-stations').on ('click', function(){
+  $('#list-stations').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     $('#myModal #inner-content').empty();
@@ -80,7 +81,7 @@ var eventHandlers = function(){
       };
   };
 
-  $('#inner-content').on ('submit', '#minNum', function(){
+  $('#inner-content').on ('submit', '#minNum', function(event){
     event.preventDefault();
     var min = Number($(this).find('input[name="custom"]').val());
     mapController.min = min
@@ -88,7 +89,7 @@ var eventHandlers = function(){
     mapController.resetAndSearch();
   });
 
-  $('#inner-content').on ('click', 'a', function(){
+  $('#inner-content').on ('click', 'a', function(event){
     event.preventDefault();
     mapController.locationId = Number($(this).attr('href'));
     mapController.searchType = "availableBikes";

@@ -14,6 +14,7 @@ ApplicationController.prototype = {
   toggleGPS: function(){
     if (this.liveGPS === false){
       this.liveGPS = true;
+      this.mapController.firstPan = true;
       this.followGPS();
       $('#not-following').hide();
       $('#following').show();

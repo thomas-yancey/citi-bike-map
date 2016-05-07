@@ -9,13 +9,14 @@
   this.min = 0
   this.panLocation = null
   this.personalLocation = null
+  this.firstPan = true
 }
 
 MapController.prototype = {
   init: function(){
     var mapOptions = {
             center: { lat: 40.7, lng: -74},
-            zoom: 10
+            zoom: 15
           };
     this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     this.grabMarkersFromCiti();
@@ -24,13 +25,16 @@ MapController.prototype = {
   updateLocation: function(latLon){
     this.clearPersonalLocationMarker();
     this.addPersonalLocationMarker(latLon);
-    this.map.panTo(this.personalLocation.position);
-    this.map.setZoom(15);
+    console.log(this.firstPan);
+    if (this.firstPan === true){
+      console.log(this);
+      this.map.panTo(this.personalLocation.position);
+      this.firstPan = false;
+    };
   },
 
   noLocation: function(latLon){
-    debugger
-    this.map.setZoom(15);
+    // alert("turn on gps for best results")
   },
 
   showAllLocations: function(){
