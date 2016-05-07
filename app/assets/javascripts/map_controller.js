@@ -16,7 +16,8 @@ MapController.prototype = {
   init: function(){
     var mapOptions = {
             center: { lat: 40.7, lng: -74},
-            zoom: 15
+            zoom: 15,
+            disableDefaultUI: true
           };
     this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     this.grabMarkersFromCiti();
