@@ -33,6 +33,7 @@ ApplicationController.prototype = {
 
     for (var i = 0; i < this.stations.length; i++){
       var currLatLng = {latitude: this.stations[i].latitude, longitude: this.stations[i].longitude};
+      // 0.00621371 is to convert to miles
       var distance = (geolib.getDistance(myPosition, currLatLng) * 0.000621371).toFixed(3);
       distances.push([distance, this.stations[i]]);
     };
@@ -71,7 +72,7 @@ ApplicationController.prototype = {
   },
 
   noLocation: function() {
-    // alert("turn on location services for current location");
+    this.mapController.noLocation();
   },
 
   buildStations: function(stations){
