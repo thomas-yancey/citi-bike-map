@@ -16,7 +16,7 @@ var eventHandlers = function(){
     applicationController.toggleGPS();
   })
 
-  $('#show-all').on ('click', function(){
+  $('#show-all').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     $('#loader').show();
@@ -25,13 +25,13 @@ var eventHandlers = function(){
     mapController.resetAndSearch();
   });
 
-  $('#location').on ('click', function(){
+  $('#location').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     applicationController.getLocation();
   });
 
-  $('#has-bikes').on ('click', function(){
+  $('#has-bikes').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     mapController.searchType = "availableBikes";
@@ -42,7 +42,7 @@ var eventHandlers = function(){
     modal.style.display = 'block';
   });
 
-  $('#has-docks').on ('click', function(){
+  $('#has-docks').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     mapController.searchType = "availableDocks";
@@ -53,7 +53,7 @@ var eventHandlers = function(){
     modal.style.display = 'block';
   });
 
-  $('#list-close-stations').on ('click', function(){
+  $('#list-close-stations').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();
     $('#myModal #inner-content').empty();

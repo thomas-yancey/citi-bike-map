@@ -46,8 +46,6 @@ ApplicationController.prototype = {
 
   },
 
-
-
   followGPS: function(){
     console.log("following");
     this.watchID = navigator.geolocation.watchPosition(this.gotLocation.bind(this),this.noLocation, {
