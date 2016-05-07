@@ -43,6 +43,11 @@ var eventHandlers = function(){
     modal.style.display = 'block';
   });
 
+  $('.navbar-brand').on ('click', function(event){
+    event.preventDefault();
+  });
+
+
   $('#has-docks').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();

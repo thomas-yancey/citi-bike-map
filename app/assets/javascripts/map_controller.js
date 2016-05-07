@@ -136,7 +136,6 @@ MapController.prototype = {
     this.parent.stations = [];
     this.markers = [];
     this.grabMarkersFromCiti();
-    debugger
   },
 
   currentTime: function(){
