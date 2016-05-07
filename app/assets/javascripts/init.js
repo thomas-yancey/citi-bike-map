@@ -47,7 +47,6 @@ var eventHandlers = function(){
     event.preventDefault();
   });
 
-
   $('#has-docks').on ('click', function(event){
     event.preventDefault();
     $('button.navbar-toggle').click();

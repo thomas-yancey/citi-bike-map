@@ -86,7 +86,7 @@ MapController.prototype = {
       this.locationId = null;
     }
     $('#loader').hide();
-    $('#last-update #curr').html(this.currentTime());
+    $('#last-update h3').html(this.currentTime());
   },
 
   clearMarkers: function(){
@@ -152,6 +152,14 @@ MapController.prototype = {
     };
     min = date.getMinutes();
     sec = date.getSeconds();
-    return hour.toString() + ":" + min.toString() + ":" + sec.toString() + " " + ampm;
+    return "Last Update - " + hour.toString() + ":" + this.minSecFormat(min) + ":" + this.minSecFormat(sec) + " " + ampm;
+  },
+
+  minSecFormat: function(num){
+    var numString = num.toString();
+    while (numString.length < 2){
+      numString = "0" + numString;
+    }
+    return numString;
   }
 }
