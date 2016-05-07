@@ -20,6 +20,16 @@ body, html {
   z-index: 1;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #f5f5f5;
+    z-index: 2;
+    text-align: right
+}
+
 #action {
   position: absolute;
   top: 10px;
@@ -31,7 +41,7 @@ body, html {
   position: absolute;
   top: 50px;
   left: 10px;
-  z-index: 2;
+  z-index: 3;
 }
 
 #last-update {
@@ -43,9 +53,10 @@ body, html {
   background-color: blue;
 }
 
-#last-update p {
-  font-size: 1.5em;
+.text-muted {
+  font-size: 1.5em
 }
+
 .modal {
     display: none;
     position: fixed; /* Stay in place */
@@ -95,7 +106,7 @@ body, html {
 
 #live-gps-container {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   bottom: 0;
   text-align: left;
 }

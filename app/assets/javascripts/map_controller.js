@@ -86,7 +86,7 @@ MapController.prototype = {
       this.locationId = null;
     }
     $('#loader').hide();
-    $('#last-update h3').html(this.currentTime());
+    $('.text-muted').html(this.currentTime());
   },
 
   clearMarkers: function(){
