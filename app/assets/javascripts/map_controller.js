@@ -29,6 +29,7 @@ MapController.prototype = {
   },
 
   noLocation: function(latLon){
+    debugger
     this.map.setZoom(15);
   },
 
