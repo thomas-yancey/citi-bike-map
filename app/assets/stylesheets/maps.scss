@@ -97,10 +97,12 @@ body, html {
 }
 
 #loader {
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  padding-top: 50%;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: -40px;
   text-align: center;
 }
 

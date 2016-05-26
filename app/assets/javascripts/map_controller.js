@@ -74,7 +74,6 @@ MapController.prototype = {
   createBuildMarkers: function(response){
     stations = response
     this.parent.buildStations(stations);
-    debugger
     for (i = 0; i < this.parent.stations.length; i++){
       if (this.parent.stations[i][this.searchType] >= this.min){
         this.addMarker(this.parent.stations[i]);
