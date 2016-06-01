@@ -1,28 +1,3 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+I wanted to take advantage of the CitiBike API to make a realtime map of the available bikes in a web application. The map allows users to specify the amount of bikes or docks they require in order to chose the correct location, lists all of the stations that are not out of service, and will list the five closest stations based on your location. You can use live GPS tracking by clicking the GPS button in the bottom left corner of the map. The application was built with ruby on rails.
